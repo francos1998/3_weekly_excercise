@@ -86,7 +86,11 @@ garden_harvest %>%
   2. Summarize the `garden_harvest` data to find the total harvest in pound for each vegetable variety and then try adding the plot from the `garden_planting` table. This will not turn out perfectly. What is the problem? How might you fix it?
 
 ```{r}
-
+head(garden_planting)
+garden_harvest %>% 
+  group_by(variety) %>% 
+  summarize(tot_harvest = sum(weight)*0.00220462)  %>% 
+  left_join(garden_planting, by = 'variety' )
 ```
 
   3. I would like to understand how much money I "saved" by gardening, for each vegetable type. Describe how I could use the `garden_harvest` and `garden_spending` datasets, along with data from somewhere like [this](https://products.wholefoodsmarket.com/search?sort=relevance&store=10542) to answer this question. You can answer this in words, referencing various join functions. You don't need R code but could provide some if it's helpful.
