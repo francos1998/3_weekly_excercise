@@ -290,14 +290,26 @@ Trips %>%
   facet_wrap(vars(client))
 ```
   
-  >This graph is better if we are trying to analyze the differences 
+  >This graph tells us the difference in time distribution between weekends and weekdays for  both casual and registered riders. Whether a graph is better or not depends on the question we are trying to answer. In this case, the graph would be better if we were interested on answering how weekend and week day ridership is different for casual and registered riders. The previous graph would've been better if the question was focused on the distribution of casual and registered riders across weekends and weekdays. 
   
 ### Spatial patterns
 
   15. Use the latitude and longitude variables in `Stations` to make a visualization of the total number of departures from each station in the `Trips` data. Use either color or size to show the variation in number of departures. We will improve this plot next week when we learn about maps!
   
 ```{r}
+station_count<- Trips %>% 
+  count(sstation) 
 
+station_count %>% 
+  left_join(Stations, by = c('sstation' = 'name')) %>% 
+  ggplot(aes(x = long, y = lat, size = n))+
+  geom_point()+
+  labs(x = 'Longitude',
+       y = 'Latitude',
+       size = '# of departures')
+        
+
+  
 ```
   
   16. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? (Again, we'll improve this next week when we learn about maps).
