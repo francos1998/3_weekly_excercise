@@ -222,7 +222,14 @@ Trips %>%
   10. Facet your graph from exercise 8. by day of the week. Is there a pattern?
   
 ```{r}
-
+Trips %>% 
+  mutate(hour = hour(sdate),
+         minute = minute(sdate)*1/60,
+         time_day = hour+minute,
+         week_day = wday(sdate, label = TRUE)) %>% 
+  ggplot(aes(x = time_day)) +
+  geom_density()+
+  facet_wrap(vars(week_day))
 ```
   
 The variable `client` describes whether the renter is a regular user (level `Registered`) or has not joined the bike-rental organization (`Causal`). The next set of exercises investigate whether these two different categories of users show different rental behavior and how `client` interacts with the patterns you found in the previous exercises. 
@@ -230,26 +237,60 @@ The variable `client` describes whether the renter is a regular user (level `Reg
   11. Change the graph from exercise 10 to set the `fill` aesthetic for `geom_density()` to the `client` variable. You should also set `alpha = .5` for transparency and `color=NA` to suppress the outline of the density function.
   
 ```{r}
-
+Trips %>% 
+  mutate(hour = hour(sdate),
+         minute = minute(sdate)*1/60,
+         time_day = hour+minute,
+         week_day = wday(sdate, label = TRUE)) %>% 
+  ggplot(aes(x = time_day, fill = client)) +
+  geom_density(alpha = 0.5, color = NA)+
+  facet_wrap(vars(week_day))
 ```
 
   12. Change the previous graph by adding the argument `position = position_stack()` to `geom_density()`. In your opinion, is this better or worse in terms of telling a story? What are the advantages/disadvantages of each?
   
 ```{r}
-
+Trips %>% 
+  mutate(hour = hour(sdate),
+         minute = minute(sdate)*1/60,
+         time_day = hour+minute,
+         week_day = wday(sdate, label = TRUE)) %>% 
+  ggplot(aes(x = time_day, fill = client )) +
+  geom_density(alpha = 0.5, color = NA, position = position_stack())+
+  facet_wrap(vars(week_day))
 ```
   
+> I think that this is better to tell the story, considering that with stacking we see how many times bigges the casual riders are relative to the registered riders on each day. A disadvantage is that we can't see the proportions right away, for the casual riders, as we have to substract the registered proportions. The advange for the non-stacked is that we can see the proportions for each right away and the distadvantage is that it is harder to compare the sizes of both casual and registered riders. 
+
   13. In this graph, go back to using the regular density plot (without `position = position_stack()`). Add a new variable to the dataset called `weekend` which will be "weekend" if the day is Saturday or Sunday and  "weekday" otherwise (HINT: use the `ifelse()` function and the `wday()` function from `lubridate`). Then, update the graph from the previous problem by faceting on the new `weekend` variable. 
   
 ```{r}
-
+Trips %>% 
+  mutate(hour = hour(sdate),
+         minute = minute(sdate)*1/60,
+         time_day = hour+minute,
+         week_day = wday(sdate, label = TRUE), 
+         weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
+  ggplot(aes(x = time_day, fill = client )) +
+  geom_density(alpha = 0.5, color = NA)+
+  facet_wrap(vars(weekend))
 ```
   
   14. Change the graph from the previous problem to facet on `client` and fill with `weekday`. What information does this graph tell you that the previous didn't? Is one graph better than the other?
   
 ```{r}
-
+Trips %>% 
+  mutate(hour = hour(sdate),
+         minute = minute(sdate)*1/60,
+         time_day = hour+minute,
+         week_day = wday(sdate, label = TRUE), 
+         weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
+  ggplot(aes(x = time_day, fill = weekend )) +
+  geom_density(alpha = 0.5, color = NA)+
+  facet_wrap(vars(client))
 ```
+  
+  >This graph is better if we are trying to analyze the differences 
   
 ### Spatial patterns
 
@@ -293,6 +334,5 @@ This problem uses the data from the Tidy Tuesday competition this week, `kids`. 
 
   21. In this exercise, you are going to try to replicate the graph below, created by Georgios Karamanis. I'm sure you can find the exact code on GitHub somewhere, but **DON'T DO THAT!** You will only be graded for putting an effort into this problem. So, give it a try and see how far you can get without doing too much googling. HINT: use `facet_geo()`. The graphic won't load below since it came from a location on my computer. So, you'll have to reference the original html on the moodle page to see it.
   
-![](kids_data_karamanis.jpeg)
 
 **DID YOU REMEMBER TO UNCOMMENT THE OPTIONS AT THE TOP?**
