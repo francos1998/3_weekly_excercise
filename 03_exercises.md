@@ -16,42 +16,8 @@ output:
 
 ```r
 library(tidyverse)     # for graphing and data cleaning
-```
-
-```
-## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.3.0 ──
-```
-
-```
-## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
-## ✓ tibble  3.0.3     ✓ dplyr   1.0.2
-## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.5.0
-```
-
-```
-## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(gardenR)       # for Lisa's garden data
 library(lubridate)     # for date manipulation
-```
-
-```
-## 
-## Attaching package: 'lubridate'
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     date, intersect, setdiff, union
-```
-
-```r
 library(ggthemes)      # for even more plotting themes
 library(geofacet)      # for special faceting with US map layout
 theme_set(theme_minimal())       # My favorite ggplot() theme :)
@@ -70,18 +36,6 @@ data("garden_planting")
 
 # Tidy Tuesday data
 kids <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-15/kids.csv')
-```
-
-```
-## Parsed with column specification:
-## cols(
-##   state = col_character(),
-##   variable = col_character(),
-##   year = col_double(),
-##   raw = col_double(),
-##   inf_adj = col_double(),
-##   inf_adj_perchild = col_double()
-## )
 ```
 
 ## Setting up on GitHub!
@@ -130,10 +84,6 @@ garden_harvest %>%
   pivot_wider(id_cols = vegetable, names_from = day, values_from = tot_harvest)
 ```
 
-```
-## `summarise()` regrouping output by 'vegetable' (override with `.groups` argument)
-```
-
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["vegetable"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Sat"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mon"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Tue"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Thu"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fri"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Sun"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Wed"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"apple","2":"0.34392072","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"asparagus","2":"0.04409240","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"basil","2":"0.41005932","3":"0.0661386","4":"0.11023100","5":"0.02645544","6":"0.46737944","7":"NA","8":"NA"},{"1":"beans","2":"4.70906832","3":"6.5080382","4":"4.38719380","5":"3.39291018","6":"1.52559704","7":"1.91361016","8":"4.08295624"},{"1":"beets","2":"0.37919464","3":"0.6724091","4":"0.15873264","5":"11.89172028","6":"0.02425082","7":"0.32187452","8":"0.18298346"},{"1":"broccoli","2":"NA","3":"0.8201186","4":"NA","5":"NA","6":"0.16534650","7":"1.25883802","8":"0.70768302"},{"1":"carrots","2":"2.33028334","3":"0.8708249","4":"0.35273920","5":"2.67420406","6":"2.13848140","7":"2.93655384","8":"5.56225626"},{"1":"chives","2":"NA","3":"NA","4":"NA","5":"NA","6":"NA","7":"NA","8":"0.01763696"},{"1":"cilantro","2":"0.03747854","3":"NA","4":"0.00440924","5":"NA","6":"0.07275246","7":"NA","8":"NA"},{"1":"corn","2":"1.31615814","3":"0.7583893","4":"0.72752460","5":"NA","6":"3.44802568","7":"1.45725382","8":"5.30211110"},{"1":"cucumbers","2":"9.64080326","3":"4.7752069","4":"10.04645334","5":"3.30693000","6":"7.42956940","7":"3.10410496","8":"5.30652034"},{"1":"edamame","2":"4.68922674","3":"NA","4":"1.40213832","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"hot peppers","2":"NA","3":"1.2588380","4":"0.14109568","5":"NA","6":"NA","7":"NA","8":"0.06834322"},{"1":"jalapeño","2":"1.50796008","3":"5.5534378","4":"0.54895038","5":"0.22487124","6":"1.29411194","7":"0.26234978","8":"0.48060716"},{"1":"kale","2":"1.49032312","3":"2.0679336","4":"0.28219136","5":"0.27998674","6":"0.38139926","7":"0.82673250","8":"0.61729360"},{"1":"kohlrabi","2":"NA","3":"NA","4":"NA","5":"0.42108242","6":"NA","7":"NA","8":"NA"},{"1":"lettuce","2":"1.31615814","3":"2.4581513","4":"0.91712192","5":"2.45153744","6":"1.80117454","7":"1.46607230","8":"1.18608556"},{"1":"onions","2":"1.91361016","3":"0.5092672","4":"0.70768302","5":"0.60186126","6":"0.07275246","7":"0.26014516","8":"NA"},{"1":"peas","2":"2.85277828","3":"4.6341112","4":"2.06793356","5":"3.39731942","6":"0.93696350","7":"2.05691046","8":"1.08026380"},{"1":"peppers","2":"1.38229674","3":"2.5264945","4":"1.44402610","5":"0.70988764","6":"0.33510224","7":"0.50265336","8":"2.44271896"},{"1":"potatoes","2":"2.80207202","3":"0.9700328","4":"NA","5":"11.85203712","6":"3.74124014","7":"NA","8":"4.57017726"},{"1":"pumpkins","2":"92.68883866","3":"30.1195184","4":"31.85675900","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"radish","2":"0.23148510","3":"0.1962112","4":"0.09479866","5":"0.14770954","6":"0.19400656","7":"0.08157094","8":"NA"},{"1":"raspberries","2":"0.53351804","3":"0.1300726","4":"0.33510224","5":"0.28880522","6":"0.57099658","7":"NA","8":"NA"},{"1":"rutabaga","2":"6.89825598","3":"NA","4":"NA","5":"NA","6":"3.57809826","7":"19.26396956","8":"NA"},{"1":"spinach","2":"0.26014516","3":"0.1477095","4":"0.49603950","5":"0.23368972","6":"0.19621118","7":"0.48722102","8":"0.21384814"},{"1":"squash","2":"56.22221924","3":"24.3345956","4":"18.46810174","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"strawberries","2":"0.16975574","3":"0.4784025","4":"NA","5":"0.08818480","6":"0.48722102","7":"0.08157094","8":"NA"},{"1":"Swiss chard","2":"0.73413846","3":"1.0736499","4":"0.07054784","5":"2.23107544","6":"0.61729360","7":"1.24781492","8":"0.90830344"},{"1":"tomatoes","2":"35.12621046","3":"11.4926841","4":"48.75076206","5":"34.51773534","6":"85.07628580","7":"75.60964752","8":"58.26590198"},{"1":"zucchini","2":"3.41495638","3":"12.1959578","4":"16.46851140","5":"34.63017096","6":"18.72163304","7":"12.23564100","8":"2.04147812"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -160,15 +110,13 @@ garden_harvest %>%
   left_join(garden_planting, by = 'variety' )
 ```
 
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["variety"],"name":[1],"type":["chr"],"align":["left"]},{"label":["tot_harvest"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["plot"],"name":[3],"type":["chr"],"align":["left"]},{"label":["vegetable"],"name":[4],"type":["chr"],"align":["left"]},{"label":["number_seeds_planted"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["date"],"name":[6],"type":["date"],"align":["right"]},{"label":["number_seeds_exact"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["notes"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"Amish Paste","2":"65.67342518","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Amish Paste","2":"65.67342518","3":"N","4":"tomatoes","5":"2","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"asparagus","2":"0.04409240","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"Better Boy","2":"34.00846812","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Better Boy","2":"34.00846812","3":"N","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Big Beef","2":"24.99377694","3":"N","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Black Krim","2":"15.80712540","3":"N","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Blue (saved)","2":"41.52401770","3":"A","4":"squash","5":"4","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Blue (saved)","2":"41.52401770","3":"B","4":"squash","5":"8","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Bolero","2":"8.29157582","3":"H","4":"carrots","5":"50","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Bolero","2":"8.29157582","3":"L","4":"carrots","5":"50","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"Bonny Best","2":"24.92322910","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Brandywine","2":"15.64618814","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Bush Bush Slender","2":"22.12997556","3":"M","4":"beans","5":"30","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"Bush Bush Slender","2":"22.12997556","3":"D","4":"beans","5":"10","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"Catalina","2":"2.03486426","3":"H","4":"spinach","5":"50","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"Catalina","2":"2.03486426","3":"E","4":"spinach","5":"100","6":"2020-06-20","7":"FALSE","8":"NA"},{"1":"Cherokee Purple","2":"15.71232674","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Chinese Red Noodle","2":"0.78484472","3":"K","4":"beans","5":"5","6":"2020-05-25","7":"TRUE","8":"NA"},{"1":"Chinese Red Noodle","2":"0.78484472","3":"L","4":"beans","5":"5","6":"2020-05-25","7":"TRUE","8":"NA"},{"1":"cilantro","2":"0.11464024","3":"potD","4":"cilantro","5":"15","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"cilantro","2":"0.11464024","3":"E","4":"cilantro","5":"20","6":"2020-06-20","7":"FALSE","8":"NA"},{"1":"Cinderella's Carraige","2":"32.87308882","3":"B","4":"pumpkins","5":"3","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Classic Slenderette","2":"3.60455370","3":"E","4":"beans","5":"29","6":"2020-06-20","7":"TRUE","8":"NA"},{"1":"Crispy Colors Duo","2":"0.42108242","3":"front","4":"kohlrabi","5":"10","6":"2020-05-20","7":"FALSE","8":"NA"},{"1":"delicata","2":"10.49840044","3":"K","4":"squash","5":"8","6":"2020-05-25","7":"TRUE","8":"NA"},{"1":"Delicious Duo","2":"0.75398004","3":"P","4":"onions","5":"25","6":"2020-04-26","7":"FALSE","8":"NA"},{"1":"Dorinny Sweet","2":"11.40670388","3":"A","4":"corn","5":"20","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"Dragon","2":"4.10500244","3":"H","4":"carrots","5":"40","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Dragon","2":"4.10500244","3":"L","4":"carrots","5":"50","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"edamame","2":"6.09136506","3":"O","4":"edamame","5":"25","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"Farmer's Market Blend","2":"3.80296950","3":"C","4":"lettuce","5":"60","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Farmer's Market Blend","2":"3.80296950","3":"L","4":"lettuce","5":"60","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"Garden Party Mix","2":"0.94578198","3":"C","4":"radish","5":"20","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Garden Party Mix","2":"0.94578198","3":"G","4":"radish","5":"30","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Garden Party Mix","2":"0.94578198","3":"H","4":"radish","5":"15","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"giant","2":"9.87228836","3":"L","4":"jalapeño","5":"4","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"Golden Bantam","2":"1.60275874","3":"B","4":"corn","5":"20","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"Gourmet Golden","2":"7.02171470","3":"H","4":"beets","5":"40","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"grape","2":"32.39468628","3":"O","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"green","2":"5.69232884","3":"K","4":"peppers","5":"12","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"green","2":"5.69232884","3":"O","4":"peppers","5":"5","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"greens","2":"0.37258078","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"Heirloom Lacinto","2":"5.94586014","3":"P","4":"kale","5":"30","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Heirloom Lacinto","2":"5.94586014","3":"front","4":"kale","5":"30","6":"2020-06-20","7":"FALSE","8":"NA"},{"1":"Improved Helenor","2":"29.74032380","3":"E","4":"rudabaga","5":"30","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"Isle of Naxos","2":"1.08026380","3":"potB","4":"basil","5":"40","6":"2020-05-16","7":"FALSE","8":"NA"},{"1":"Jet Star","2":"15.02448530","3":"N","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"King Midas","2":"4.09618396","3":"H","4":"carrots","5":"50","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"King Midas","2":"4.09618396","3":"L","4":"carrots","5":"50","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"leaves","2":"0.22266662","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"Lettuce Mixture","2":"4.74875148","3":"G","4":"lettuce","5":"200","6":"2020-06-20","7":"FALSE","8":"NA"},{"1":"Long Keeping Rainbow","2":"3.31133924","3":"H","4":"onions","5":"40","6":"2020-04-26","7":"FALSE","8":"NA"},{"1":"Magnolia Blossom","2":"7.45822946","3":"B","4":"peas","5":"24","6":"2020-04-19","7":"TRUE","8":"NA"},{"1":"Main Crop Bravado","2":"2.13186754","3":"D","4":"broccoli","5":"7","6":"2020-05-22","7":"TRUE","8":"NA"},{"1":"Main Crop Bravado","2":"2.13186754","3":"I","4":"broccoli","5":"7","6":"2020-05-22","7":"TRUE","8":"NA"},{"1":"Mortgage Lifter","2":"26.32536742","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"died"},{"1":"Mortgage Lifter","2":"26.32536742","3":"N","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"mustard greens","2":"0.05070626","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"Neon Glow","2":"6.88282364","3":"M","4":"Swiss chard","5":"25","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"New England Sugar","2":"44.85960776","3":"K","4":"pumpkins","5":"4","6":"2020-05-25","7":"TRUE","8":"NA"},{"1":"Old German","2":"26.71778978","3":"J","4":"tomatoes","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"perrenial","2":"3.18126666","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"pickling","2":"43.60958822","3":"L","4":"cucumbers","5":"20","6":"2020-05-25","7":"FALSE","8":"NA"},{"1":"purple","2":"3.00930630","3":"D","4":"potatoes","5":"5","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"red","2":"4.43349082","3":"I","4":"potatoes","5":"3","6":"2020-05-22","7":"FALSE","8":"NA"},{"1":"Red Kuri","2":"22.73183682","3":"A","4":"squash","5":"4","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Red Kuri","2":"22.73183682","3":"B","4":"squash","5":"4","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Red Kuri","2":"22.73183682","3":"side","4":"squash","5":"1","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"reseed","2":"0.09920790","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"Romanesco","2":"99.70834874","3":"D","4":"zucchini","5":"3","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"Russet","2":"9.09185288","3":"D","4":"potatoes","5":"8","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"saved","2":"76.93241952","3":"B","4":"pumpkins","5":"8","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Super Sugar Snap","2":"9.56805080","3":"A","4":"peas","5":"22","6":"2020-04-19","7":"TRUE","8":"NA"},{"1":"Sweet Merlin","2":"6.38678414","3":"H","4":"beets","5":"40","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"Tatsoi","2":"2.89466606","3":"P","4":"lettuce","5":"25","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"thai","2":"0.14770954","3":"potB","4":"hot peppers","5":"1","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"unknown","2":"0.34392072","3":"NA","4":"NA","5":"NA","6":"<NA>","7":"NA","8":"NA"},{"1":"variety","2":"4.97141810","3":"potA","4":"peppers","5":"3","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"variety","2":"4.97141810","3":"potA","4":"peppers","5":"3","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"variety","2":"4.97141810","3":"potC","4":"hot peppers","5":"6","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"variety","2":"4.97141810","3":"potD","4":"peppers","5":"1","6":"2020-05-21","7":"TRUE","8":"NA"},{"1":"volunteers","2":"51.61235882","3":"N","4":"tomatoes","5":"1","6":"2020-06-03","7":"TRUE","8":"NA"},{"1":"volunteers","2":"51.61235882","3":"J","4":"tomatoes","5":"1","6":"2020-06-03","7":"TRUE","8":"NA"},{"1":"volunteers","2":"51.61235882","3":"front","4":"tomatoes","5":"5","6":"2020-06-03","7":"TRUE","8":"NA"},{"1":"volunteers","2":"51.61235882","3":"O","4":"tomatoes","5":"2","6":"2020-06-03","7":"TRUE","8":"NA"},{"1":"Waltham Butternut","2":"24.27066158","3":"A","4":"squash","5":"4","6":"2020-05-20","7":"TRUE","8":"NA"},{"1":"Waltham Butternut","2":"24.27066158","3":"K","4":"squash","5":"6","6":"2020-05-25","7":"TRUE","8":"NA"},{"1":"yellow","2":"7.40090934","3":"I","4":"potatoes","5":"10","6":"2020-05-02","7":"FALSE","8":"NA"},{"1":"yellow","2":"7.40090934","3":"I","4":"potatoes","5":"8","6":"2020-05-22","7":"TRUE","8":"NA"},{"1":"Yod Fah","2":"0.82011864","3":"P","4":"broccoli","5":"25","6":"2020-05-16","7":"FALSE","8":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+
+> Some of the vegetables are missing values on the planting data, this due mulitple reasons including that some of them were not planted. To solve the issue we could either delete of the NA values, given that these observations are not fundamental for our analysis. 
 
   3. I would like to understand how much money I "saved" by gardening, for each vegetable type. Describe how I could use the `garden_harvest` and `garden_spending` datasets, along with data from somewhere like [this](https://products.wholefoodsmarket.com/search?sort=relevance&store=10542) to answer this question. You can answer this in words, referencing various join functions. You don't need R code but could provide some if it's helpful.
   
@@ -177,10 +125,6 @@ garden_harvest %>%
 garden_harvest %>% 
   group_by(variety) %>% 
   summarize(tot_harvest = sum(weight)*0.00220462)
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <div data-pagedtable="false">
@@ -203,10 +147,6 @@ garden_spending
 garden_planting%>% 
   group_by(variety) %>% 
   summarize(tot_seeds = sum(number_seeds_planted))
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 <div data-pagedtable="false">
@@ -233,22 +173,34 @@ Then I would sum the values of the gross savings variable. And also separately s
 
 
 ```r
-garden_harvest %>% 
+order_harvest <- garden_harvest %>% 
   filter(vegetable == "tomatoes") %>% 
   mutate(variety2 = fct_reorder(variety, date, .fun = min)) %>% 
   group_by(variety2) %>% 
   summarise(date, variety2,
             weight, 
             tot_harvest = sum(weight)*0.00220462) %>% 
-  ggplot(aes(y = fct_rev(variety2), x = tot_harvest)) +
-  geom_col()
+  distinct(variety2, tot_harvest)
+order_harvest
 ```
 
-```
-## `summarise()` regrouping output by 'variety2' (override with `.groups` argument)
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["variety2"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["tot_harvest"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"grape","2":"32.39469"},{"1":"Big Beef","2":"24.99378"},{"1":"Bonny Best","2":"24.92323"},{"1":"Better Boy","2":"34.00847"},{"1":"Cherokee Purple","2":"15.71233"},{"1":"Amish Paste","2":"65.67343"},{"1":"Mortgage Lifter","2":"26.32537"},{"1":"Jet Star","2":"15.02449"},{"1":"Old German","2":"26.71779"},{"1":"Black Krim","2":"15.80713"},{"1":"Brandywine","2":"15.64619"},{"1":"volunteers","2":"51.61236"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+order_harvest %>% 
+  ggplot(aes(y = fct_rev(variety2), x = tot_harvest)) +
+  geom_col()+
+  labs(title = 'Tomato varieties in ascending order by first harvest',
+       x = "Total Harvest (lbs)",
+       y = "")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 
   5. In the `garden_harvest` data, create two new variables: one that makes the varieties lowercase and another that finds the length of the variety name. 
 Arrange the data by vegetable and length of variety name (smallest to largest), with one row for each vegetable variety. HINT: use `str_to_lower()`, `str_length()`, and `distinct()`.
@@ -314,17 +266,6 @@ Trips <- readRDS(gzcon(url(data_site)))
 Stations<-read_csv("http://www.macalester.edu/~dshuman1/data/112/DC-Stations.csv")
 ```
 
-```
-## Parsed with column specification:
-## cols(
-##   name = col_character(),
-##   lat = col_double(),
-##   long = col_double(),
-##   nbBikes = col_double(),
-##   nbEmptyDocks = col_double()
-## )
-```
-
 **NOTE:** The `Trips` data table is a random subset of 10,000 trips from the full quarterly data. Start with this small data table to develop your analysis commands. **When you have this working well, you should access the full data set of more than 600,000 events by removing `-Small` from the name of the `data_site`.**
 
 ### Temporal patterns
@@ -337,7 +278,10 @@ It's natural to expect that bikes are rented more at some times of day, some day
 ```r
 Trips %>% 
   ggplot(aes(x = sdate)) +
-  geom_density()
+  geom_density()+
+  labs(title = "Events vs Date",
+       x = "",
+       y = "")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
@@ -351,7 +295,10 @@ Trips %>%
          minute = minute(sdate)*1/60,
          time_day = hour+minute) %>% 
   ggplot(aes(x = time_day)) +
-  geom_density()
+  geom_density()+
+  labs(title = "Events vs Time of day",
+       x = "",
+       y = "")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
@@ -364,7 +311,9 @@ Trips %>%
   mutate(week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(y = week_day))+
   geom_bar()+
-  labs(y = '')
+  labs(title = "Event vs Day of Week",
+       x = "",
+       y = "")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
@@ -380,7 +329,10 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day)) +
   geom_density()+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
@@ -398,7 +350,11 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day, fill = client)) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
@@ -414,7 +370,11 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day, fill = client )) +
   geom_density(alpha = 0.5, color = NA, position = position_stack())+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
@@ -433,7 +393,11 @@ Trips %>%
          weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
   ggplot(aes(x = time_day, fill = client )) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(weekend))
+  facet_wrap(vars(weekend))+
+  labs(title = "Proportion of events vs Time of Day for weekends and weekdays",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
@@ -450,7 +414,11 @@ Trips %>%
          weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
   ggplot(aes(x = time_day, fill = weekend )) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(client))
+  facet_wrap(vars(client))+
+  labs(title = "Proportion of events vs Time of Day for each comsumer type",
+       x = "",
+       y = "", 
+       fill = " ")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
@@ -472,15 +440,7 @@ Trips %>%
   geom_point()+ 
   labs(x = 'Longitude',
        y = 'Latitude',
-       size = '# of departures')
-```
-
-```
-## `summarise()` regrouping output by 'lat' (override with `.groups` argument)
-```
-
-```
-## Warning: Removed 1 rows containing missing values (geom_point).
+       color = '# of departures')
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
@@ -496,22 +456,16 @@ Trips %>%
             proportion_casual = mean(client == 'Casual') ) %>% 
   ggplot(aes(x = long, y = lat, color = proportion_casual))+
   geom_point()+ 
-  labs(x = 'Longitude',
+  labs(title = "Spacial distribution of bike stations",
+       x = 'Longitude',
        y = 'Latitude',
-       color = 'Proportion of casual')
-```
-
-```
-## `summarise()` regrouping output by 'lat' (override with `.groups` argument)
-```
-
-```
-## Warning: Removed 1 rows containing missing values (geom_point).
+       color = "Casual clients' 
+       Proportion")
 ```
 
 ![](03_exercises_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
   
-  > I notice that there is a concentration of casual riders in stations located around longitude -77.1 and -77. 
+  > I notice that there is a concentration of stations with a high proportion of casual riders in stations located between longitudes -77.1 and -77. 
   
 ### Spatiotemporal patterns
 

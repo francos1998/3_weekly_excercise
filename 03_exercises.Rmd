@@ -12,7 +12,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries}
@@ -93,6 +93,8 @@ garden_harvest %>%
   left_join(garden_planting, by = 'variety' )
 ```
 
+> Some of the vegetables are missing values on the planting data, this due mulitple reasons including that some of them were not planted. To solve the issue we could either delete of the NA values, given that these observations are not fundamental for our analysis. 
+
   3. I would like to understand how much money I "saved" by gardening, for each vegetable type. Describe how I could use the `garden_harvest` and `garden_spending` datasets, along with data from somewhere like [this](https://products.wholefoodsmarket.com/search?sort=relevance&store=10542) to answer this question. You can answer this in words, referencing various join functions. You don't need R code but could provide some if it's helpful.
   
 ```{r}
@@ -122,16 +124,23 @@ Then I would sum the values of the gross savings variable. And also separately s
   4. Subset the data to tomatoes. Reorder the tomato varieties from smallest to largest first harvest date. Create a barplot of total harvest in pounds for each variety, in the new order.
 
 ```{r}
-garden_harvest %>% 
+order_harvest <- garden_harvest %>% 
   filter(vegetable == "tomatoes") %>% 
   mutate(variety2 = fct_reorder(variety, date, .fun = min)) %>% 
   group_by(variety2) %>% 
   summarise(date, variety2,
             weight, 
             tot_harvest = sum(weight)*0.00220462) %>% 
+  distinct(variety2, tot_harvest)
+order_harvest
+order_harvest %>% 
   ggplot(aes(y = fct_rev(variety2), x = tot_harvest)) +
-  geom_col()
+  geom_col()+
+  labs(title = 'Tomato varieties in ascending order by first harvest',
+       x = "Total Harvest (lbs)",
+       y = "")
 ```
+
 
   5. In the `garden_harvest` data, create two new variables: one that makes the varieties lowercase and another that finds the length of the variety name. 
 Arrange the data by vegetable and length of variety name (smallest to largest), with one row for each vegetable variety. HINT: use `str_to_lower()`, `str_length()`, and `distinct()`.
@@ -194,7 +203,10 @@ It's natural to expect that bikes are rented more at some times of day, some day
 ```{r}
 Trips %>% 
   ggplot(aes(x = sdate)) +
-  geom_density()
+  geom_density()+
+  labs(title = "Events vs Date",
+       x = "",
+       y = "")
 ```
   
   8. A density plot of the events versus time of day.  You can use `mutate()` with `lubridate`'s  `hour()` and `minute()` functions to extract the hour of the day and minute within the hour from `sdate`. Hint: A minute is 1/60 of an hour, so create a variable where 3:30 is 3.5 and 3:45 is 3.75.
@@ -205,7 +217,10 @@ Trips %>%
          minute = minute(sdate)*1/60,
          time_day = hour+minute) %>% 
   ggplot(aes(x = time_day)) +
-  geom_density()
+  geom_density()+
+  labs(title = "Events vs Time of day",
+       x = "",
+       y = "")
 ```
   
   9. A bar graph of the events versus day of the week. Put day on the y-axis.
@@ -215,7 +230,9 @@ Trips %>%
   mutate(week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(y = week_day))+
   geom_bar()+
-  labs(y = '')
+  labs(title = "Event vs Day of Week",
+       x = "",
+       y = "")
   
 ```
   
@@ -229,7 +246,10 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day)) +
   geom_density()+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "")
 ```
   
 The variable `client` describes whether the renter is a regular user (level `Registered`) or has not joined the bike-rental organization (`Causal`). The next set of exercises investigate whether these two different categories of users show different rental behavior and how `client` interacts with the patterns you found in the previous exercises. 
@@ -244,7 +264,11 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day, fill = client)) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
 
   12. Change the previous graph by adding the argument `position = position_stack()` to `geom_density()`. In your opinion, is this better or worse in terms of telling a story? What are the advantages/disadvantages of each?
@@ -257,7 +281,11 @@ Trips %>%
          week_day = wday(sdate, label = TRUE)) %>% 
   ggplot(aes(x = time_day, fill = client )) +
   geom_density(alpha = 0.5, color = NA, position = position_stack())+
-  facet_wrap(vars(week_day))
+  facet_wrap(vars(week_day))+
+  labs(title = "Proportion of events vs Time of Day for each day of the week",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
   
 > I think that this is better to tell the story, considering that with stacking we see how many times bigges the casual riders are relative to the registered riders on each day. A disadvantage is that we can't see the proportions right away, for the casual riders, as we have to substract the registered proportions. The advange for the non-stacked is that we can see the proportions for each right away and the distadvantage is that it is harder to compare the sizes of both casual and registered riders. 
@@ -273,7 +301,11 @@ Trips %>%
          weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
   ggplot(aes(x = time_day, fill = client )) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(weekend))
+  facet_wrap(vars(weekend))+
+  labs(title = "Proportion of events vs Time of Day for weekends and weekdays",
+       x = "",
+       y = "", 
+       fill = "Type of client")
 ```
   
   14. Change the graph from the previous problem to facet on `client` and fill with `weekday`. What information does this graph tell you that the previous didn't? Is one graph better than the other?
@@ -287,7 +319,11 @@ Trips %>%
          weekend = ifelse(week_day %in% c("Sat","Sun"), "weekend", "weekday")) %>% 
   ggplot(aes(x = time_day, fill = weekend )) +
   geom_density(alpha = 0.5, color = NA)+
-  facet_wrap(vars(client))
+  facet_wrap(vars(client))+
+  labs(title = "Proportion of events vs Time of Day for each comsumer type",
+       x = "",
+       y = "", 
+       fill = " ")
 ```
   
   >This graph tells us the difference in time distribution between weekends and weekdays for  both casual and registered riders. Whether a graph is better or not depends on the question we are trying to answer. In this case, the graph would be better if we were interested on answering how weekend and week day ridership is different for casual and registered riders. The previous graph would've been better if the question was focused on the distribution of casual and registered riders across weekends and weekdays. 
@@ -306,7 +342,7 @@ Trips %>%
   geom_point()+ 
   labs(x = 'Longitude',
        y = 'Latitude',
-       size = '# of departures')
+       color = '# of departures')
         
 
   
@@ -322,12 +358,14 @@ Trips %>%
             proportion_casual = mean(client == 'Casual') ) %>% 
   ggplot(aes(x = long, y = lat, color = proportion_casual))+
   geom_point()+ 
-  labs(x = 'Longitude',
+  labs(title = "Spacial distribution of bike stations",
+       x = 'Longitude',
        y = 'Latitude',
-       color = 'Proportion of casual')
+       color = "Casual clients' 
+       Proportion")
 ```
   
-  > I notice that there is a concentration of casual riders in stations located around longitude -77.1 and -77. 
+  > I notice that there is a concentration of stations with a high proportion of casual riders in stations located between longitudes -77.1 and -77. 
   
 ### Spatiotemporal patterns
 
